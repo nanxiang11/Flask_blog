@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <link rel="shortcut icon" href="../../static/img/index/bitbug_favicon.ico" type="image/x-icon">
+    <link rel="bookmark" href="../../static/img/index/bitbug_favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{{ url_for("static", filename="/js/echarts.min.js") }}"></script>
+    <style type="text/css">
+        .div{
+            margin: 0 auto;
+            width: 100%;
+            -webkit-box-shadow: 0 -1px 0 0 rgb(0 0 0 / 5%);
+            box-shadow: 0 -1px 0 0 rgb(0 0 0 / 5%);
+            padding: 24px 34px 20px;
+        }
+        .footer-column-t {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+        .li {
+            margin: 0 8px;
+            color: #999aaa;
+            font-size: 14px;
+            height: 16px;
+            line-height: 16px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+        .column-b {
+            margin-top: 8px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+        .imgurl{
+            display: block;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+        .jinsom-mark {
+            min-width: 8px;
+            border-radius: 9px;
+            display: inline-block;
+            font-size: 12px;
+            line-height: 18px;
+            padding: 0 5px;
+            margin-left: 2px;
+            color: #fff;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="container">
+    <div style="width: 100%;height: 60px;background-color: #1a1918;display: flex">
+        <div style="width: 50%;height: 100%;text-align: left">
+            <span style="font-size: 40px;color: #f5f0ef">CREATE</span>
+        </div>
+        <div style="width: 50%;height: 100%;text-align: right">
+            <span style="font-size: 40px; color: #f5f0ef">ONESELF</span>
+        </div>
+    </div>
+    <div style="width: 100%;height: 80px;display: flex">
+        <div style="height: 60px;width: 68px;text-align: left;padding-top: 10px;padding-bottom: 10px">
+            <img src="{{ q[0].imgurl }}" class="imgurl" alt="">
+        </div>
+        <div style="height: 80px;width: 100%;text-align: left;padding-top: 10px;padding-bottom: 10px">
+            <div style="width: 100%;height: 50%;display: flex">
+                <span class="jinsom-mark">
+                    {% for m in v %}
+                        {% if q[0].id == m.user_id %}
+                            <span style="background: #FFB800;" class="jinsom-mark">用户vip{{ m.vip }}</span>
+                            {% if m.manage == "1" %}
+                                <span style="background: #117d1b;" class="jinsom-mark">官方</span>
+                            {% endif %}
+                            {% if m.ding == "1" %}
+                                <span class="jinsom-mark" style="background-color: #1E9FFF;border-radius: 2px;cursor: pointer;vertical-align: 2px;">
+                                    顶
+                                </span>
+                            {% endif %}
+                            {% if m.tui == "1" %}
+                                <span class="jinsom-mark" style="background-color: #c11c06;border-radius: 2px;cursor: pointer;vertical-align: 2px;">
+                                    荐
+                                </span>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </span>
+            </div>
+            <div style="width: 100%;height: 50%;">
+                &nbsp;&nbsp;&nbsp;<span style="font-size: 20px">{{ q[0].studentName }}</span>
+                <a href="{{ url_for("homeapp.user_edit") }}"  class="btn btn-warning">编辑资料</a>
+                <a href="{{ url_for("homeapp.index") }}"  class="btn btn-info">返回</a>
+                <a href="{{ url_for("userapp.userresg") }}"  class="btn btn-danger">私信</a>
+            </div>
+        </div>
+    </div>
+    <div style="width: 100%;height: 20px;word-wrap:break-word">
+        <span class="glyphicon glyphicon-bullhorn"> {{ q[0].aboutme }}</span>
+    </div>
+    <div class="row" style="margin-top: 20px">
+        <div id="bar" class="col-xs-6 col-md-3" style="height: 300px">
+
+        </div>
+        <div id="pie" class="col-xs-6 col-md-4" style="height: 350px">
+
+        </div>
+        <div id="line" class="col-xs-6 col-md-3" style="height: 300px">
+
+        </div>
+        <script type="text/javascript">
+            // 基于准备好的dom，初始化echarts实例
+            var barChart = echarts.init(document.getElementById('bar'));
+            var pieChart = echarts.init(document.getElementById('pie'));
+            var lineChart = echarts.init(document.getElementById('line'));
+
+
+            // 使用刚指定的配置项和数据显示图表。
+            lineChart.setOption({{ line_options | safe }});
+            barChart.setOption({{ bar_options | safe }});
+            pieChart.setOption({{ pie_options | safe }});
+        </script>
+    </div>
+    <div style="border-radius: 8px;background-color: #e0781d;width: 100%;height: 400px">
+        <div style="width: 100%; height: 10px"></div>
+        <div style="margin-left: 10px; margin-right: 10px; background-color: #fafafa;height: 380px; border-radius: 4px;word-wrap:break-word;overflow: auto;" >
+            {% for m1 in m %}
+                {% if m1.user_id == q[0].id %}
+                    <div style="padding: 20px 20px 20px 20px;background-color: #ddf8fa;width: 100%;height: 200px;overflow: hidden">
+                        <div>
+                            <div><strong>{{ m1.title }}</strong></div>
+                            <div><span style="color: #cfc0ee">{{ m1.postTime }}</span></div>
+                        </div>
+                        <div>
+                          {{ m1.body | safe}}
+                        </div>
+                    </div>
+                    <div style="width: 100%;height: 20px;"></div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="div">
+            <ul class="footer-column-t">
+                <li class="li"><a href="#">关于我们</a></li>
+                <li class="li"><a href="mailto: 2251798294@qq.com">找我合作</a> </li>
+            </ul>
+            <ul class="column-b">
+                <li class="li"><a href="http://beian.miit.gov.cn">赣ICP备2021004042号</a></li>
+            </ul>
+    </div>
+</div>
+</body>
+</html>

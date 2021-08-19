@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>脑洞—私信</title>
+    <link rel="shortcut icon" href="../../static/img/index/bitbug_favicon.ico" type="image/x-icon">
+    <link rel="bookmark" href="../../static/img/index/bitbug_favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .form{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="container">
+    <div style="background-color: #f8d8b8;width: 400px;height: 200px;margin: auto;border-radius: 4px;box-shadow: darkgrey 0px 0px 10px 2px inset;">
+        <form method="post">
+            {{ form.csrf_token }}
+                <div style="background-color: white;margin-left: 8px;margin-right: 8px;height: 140px ">
+                        {{ form.body(class="form") }}
+                </div>
+                <div style="text-align: center">
+                    {{ form.sent(class='btn btn-success') }}
+                </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

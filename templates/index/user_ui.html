@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户中心</title>
+    <link rel="shortcut icon" href="../../static/img/index/bitbug_favicon.ico" type="image/x-icon">
+    <link rel="bookmark" href="../../static/img/index/bitbug_favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{#    <script src="../../static/js/echarts.min.js"></script>#}
+    <script src="{{ url_for("static", filename="/js/echarts.min.js") }}"></script>
+    <style type="text/css">
+        .div{
+            margin: 0 auto;
+            width: 100%;
+            -webkit-box-shadow: 0 -1px 0 0 rgb(0 0 0 / 5%);
+            box-shadow: 0 -1px 0 0 rgb(0 0 0 / 5%);
+            padding: 24px 34px 20px;
+        }
+        .footer-column-t {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+        .li {
+            margin: 0 8px;
+            color: #999aaa;
+            font-size: 14px;
+            height: 16px;
+            line-height: 16px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+        .column-b {
+            margin-top: 8px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+        .top{
+            padding-top: 16px;
+            width: 100%;
+            height: 100px;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            background-size: cover;
+            background-image: url("../../static/img/user/top.jpg");
+        }
+        .div1{
+            max-width: 1660px;
+            min-width: 1280px;
+            margin: 0 auto;
+        }
+        .div2{
+            position: absolute;
+            left: 50%;
+            -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+            top: -36px;
+            width: 104px;
+            height: 104px;
+            -webkit-box-shadow: 0 0 10px 2px rgb(0, 0, 6%);
+            box-shadow: 0 0 10px 2px rgb(0, 0, 6%);
+            border: 4px solid #fff;
+            border-radius: 50%;
+            background: #262525;
+        }
+        .jianjie{
+            color: #222226;
+            font-size: 22px;
+            font-weight: 500;
+            line-height: 24px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+        .jianjie2{
+                height: 16px;
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                justify-content: center;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                align-items: center;
+                border-radius: 8px;
+                margin-left: 4px;
+        }
+        .jianjie3{
+                padding: 0 6px 0 4px;
+                font-size: 12px;
+                display: block;
+                height: 16px;
+                line-height: 16px;
+                text-align: center;
+        }
+        .jianjie4{
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                align-items: center;
+                margin-top: 16px;
+                text-align: center;
+        }
+        .jianjie5{
+                max-width: 1024px;
+                display: inline;
+                color: #999aaa;
+                font-size: 14px;
+                line-height: 20px;
+                word-break: break-word;
+                text-align: center;
+        }
+        .shuju{
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                justify-content: center;
+                margin-top: 24px;
+        }
+        .ul{
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+        }
+        .li{
+                width: 144px;
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-orient: vertical;
+                -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                flex-direction: column;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                align-items: center;
+                position: relative;
+        }
+        .after {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            content: "";
+            height: 24px;
+            width: 1px;
+            background: #e8e8ed;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    {% if 'student' not in session %}
+        <div style="margin-top: 200px;text-align: center">
+            <h1 style="color: #8d2016">请先登入之后在写文章</h1>
+            <h2 style="color: #efa615">请先登入之后在写文章</h2>
+            <h3 style="color: #0554ef">请先登入之后在写文章</h3>
+            <a href="{{ url_for("homeapp.login") }}" class="btn btn-info">登入</a>
+        </div>
+    {% else %}
+          <div class="top"></div>
+        <div class="div1">
+            <div style="position: relative;margin-bottom: 2px;">
+                <a href="{{ url_for("homeapp.user_edit") }}" style="float: right" class="btn btn-warning">编辑资料</a>
+                <a href="{{ url_for("homeapp.index") }}" style="float: right" class="btn btn-info">返回</a>
+                <div class="div2">
+                    <img src="{{ query[0].imgurl }}" style="width: 100%;height: 100%;display: block;border-radius: 50%;" alt="erroor">
+                </div>
+                <div style="background-color: #f5e8e8;width: 100%;height: 80px"></div>
+            </div>
+            <div style="background-color: #f4f6f4;width: 100%;height: 100px">
+                <div class="jianjie">
+                    <div>{{ request.cookies.get("user") }}</div>
+                    <div style="background-color: #D1DDF1;color: #455165;" class="jianjie2" title="成员">
+                        <img src="../../static/img/user/head/20210108035944.gif" style="width: 22px;height: 22px;display: block;">
+                        <span class="jianjie3">热度：99</span>
+                    </div>
+                </div>
+                <div class="jianjie4">
+                    简介：<p class="jianjie5">{{ query[0].aboutme }}</p>
+                </div>
+            </div>
+            <div class="shuju">
+                <ul class="ul">
+                    <li class="li">
+                        <div style="text-align: center">
+                            <span style="font-size: 30px">{{ query1.disnum }}</span><br>
+                            <span style="font-size: 15px;color: rgba(188,162,250,0.9)">评论次数</span>
+                        </div>
+                    </li>
+                    <li class="li">
+                        <div style="text-align: center">
+                            <span style="font-size: 30px">{{ query1.matchnum }}</span><br>
+                            <span style="font-size: 15px;color: rgba(188,162,250,0.9)">文章数量</span>
+                        </div>
+                    </li>
+                    <li class="li">
+                        <div style="text-align: center">
+                            <span style="font-size: 30px">{{ query1.seenum }}</span><br>
+                            <span style="font-size: 15px;color: rgba(188,162,250,0.9)">浏览次数</span>
+                        </div>
+                    </li>
+                    <li class="li">
+                        <div style="text-align: center">
+                            <span style="font-size: 30px">{{ query1.lovenum }}</span><br>
+                            <span style="font-size: 15px;color: rgba(188,162,250,0.9)">喜欢人数</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div style="width: 100%;height: 300px;background-color: #e0781d;display: flex">
+                <div id="bar" style="height: 100%; width: 30%; margin-right: 2.5%;background-color: #f5f0ef;margin-left: 2.5%"></div>
+                <div id="pie" style="height: 100%; width: 30%; margin-right: 2.5%;background-color: #f5f0ef"></div>
+                <div id="line" style="height: 100%; width: 30%;background-color: #f5f0ef"></div>
+                <script type="text/javascript">
+                    // 基于准备好的dom，初始化echarts实例
+                    var barChart = echarts.init(document.getElementById('bar'));
+                    var pieChart = echarts.init(document.getElementById('pie'));
+                    var lineChart = echarts.init(document.getElementById('line'));
+
+
+                    // 使用刚指定的配置项和数据显示图表。
+                    lineChart.setOption({{ line_options | safe }});
+                    barChart.setOption({{ bar_options | safe }});
+                    pieChart.setOption({{ pie_options | safe }});
+                </script>
+            </div>
+        </div>
+    {% endif %}
+    <div class="div">
+            <ul class="footer-column-t">
+                <li class="li"><a href="#">关于我们</a></li>
+                <li class="li"><a href="mailto: 2251798294@qq.com">找我合作</a> </li>
+            </ul>
+            <ul class="column-b">
+                <li class="li"><a href="http://beian.miit.gov.cn">赣ICP备2021004042号</a></li>
+            </ul>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .div{
+            margin: 0 auto;
+            width: 100%;
+            -webkit-box-shadow: 0 -1px 0 0 rgb(0 0 0 / 5%);
+            box-shadow: 0 -1px 0 0 rgb(0 0 0 / 5%);
+            background: #fff;
+            padding: 24px 34px 20px;
+        }
+        .footer-column-t {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+        .li {
+            margin: 0 8px;
+            color: #999aaa;
+            font-size: 14px;
+            height: 16px;
+            line-height: 16px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+        .column-b {
+            margin-top: 8px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body style="background-color: #b6c3c9">
+<div class="container">
+    {% block beian %}
+        <div class="div">
+            <ul class="footer-column-t">
+                <li class="li"><a href="#">关于我们</a></li>
+                <li class="li"><a href="mailto: 2251798294@qq.com">找我合作</a> </li>
+            </ul>
+            <ul class="column-b">
+                <li class="li"><a href="http://beian.miit.gov.cn">赣ICP备2021004042号</a></li>
+            </ul>
+        </div>
+    {% endblock %}
+</div>
+</body>
+</html>

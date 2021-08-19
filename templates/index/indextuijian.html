@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>脑洞-首页</title>
+    <link rel="shortcut icon" href="../../static/img/index/bitbug_favicon.ico" type="image/x-icon">
+    <link rel="bookmark" href="../../static/img/index/bitbug_favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .div{
+            margin: 0 auto;
+            width: 100%;
+            -webkit-box-shadow: 0 -1px 0 0 rgb(0 0 0 / 5%);
+            box-shadow: 0 -1px 0 0 rgb(0 0 0 / 5%);
+            padding: 24px 34px 20px;
+        }
+        .footer-column-t {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+        .li {
+            margin: 0 8px;
+            color: #999aaa;
+            font-size: 14px;
+            height: 16px;
+            line-height: 16px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+        .column-b {
+            margin-top: 8px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+        .jinsom-header {
+            background-color: #202223;
+            width: 100%;
+            margin: auto;
+            color: #fff;
+            height: 60px;
+            overflow: hidden;  /*清除浮动*/
+        }
+        .logo {
+            width: 60%;
+            float: left;
+            height: 100%;
+            text-align: left;
+        }
+        .lift{
+            float: right;
+            width: 40%;
+            height: 100%;
+            text-align: right;
+        }
+        .imgurl{
+                display: block;
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+        }
+        .imgurl2{
+                display: block;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+        }
+        .match{
+            width: 100%;
+            height: 300px;
+            margin-bottom: 10px;
+            background-color: #f5f0ef;
+        }
+        .jinsom-mark {
+            min-width: 8px;
+            border-radius: 9px;
+            display: inline-block;
+            font-size: 12px;
+            line-height: 18px;
+            padding: 0 5px;
+            margin-left: 2px;
+            color: #fff;
+        }
+        .jinsom-post-bar li {
+            float: left;
+            position: relative;
+            line-height: 32px;
+            font-size: 15px;
+            cursor: pointer;
+            color: #9c9898;
+            margin-right: 40px;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="background-color: #c1bdbd">
+<div class="container">
+    <div class="jinsom-header">
+        <div class="logo"><span style="color: #f5f0ef;font-size: 40px"><a href="#" style="color: #f5f0ef">NAODONG</a></span></div>
+        {% if 'student' not in session %}
+            <div class="lift"><a href="{{ url_for("homeapp.login") }}" class="btn btn-info">登入</a>&nbsp;&nbsp;
+                <a href="{{ url_for("homeapp.post") }}" class="btn btn-danger" >注册</a>
+            </div>
+        {% else %}
+            <div class="lift">
+                <div style="height: 48px;width: 68px;margin-left: auto;">
+                    <img src="{{ q[0].imgurl }}" class="imgurl" alt="">
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div style="width: 100%; height: 30px; margin-top: 10px; margin-bottom: 10px;">
+        <a href="{{ url_for("homeapp.index") }}" class="btn btn-success">返回</a>
+    </div>
+    <div style="width: 100%;: #f5f0ef;height: 800px">
+        {% for h in v %}
+            {% for i in query %}
+                {% if h.manage == "1" and h.id == i.vp_id %}
+                    <div class="match">
+                        <div style="margin-right: 6px;height: 60px;display: flex;margin-left: 6px;margin-top: 6px">
+                            <div style="height: 100%;width: 60px;">
+                                {% for j in q2 %}
+                                    {% if i.user_id == j.id %}
+                                        <img src="{{ j.imgurl }}" class="imgurl2" alt="">
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div style="height: 100%;width: 400px;margin-left: 6px">
+                                <div style="height: 50%;width: 100%;">
+                                    {% for j in q2 %}
+                                        {% if i.user_id == j.id %}
+                                            <a href="#" style="font-size: 16px;color: #202223">{{ j.studentName }}</a>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <span class="jinsom-mark">
+                                        {% for m in v %}
+                                            {% if i.vp_id == m.id %}
+                                                <span style="background: #FFB800;" class="jinsom-mark">用户vip{{ m.vip }}</span>
+                                                {% if m.manage == "1" %}
+                                                    <span style="background: #117d1b;" class="jinsom-mark">官方</span>
+                                                {% endif %}
+                                                {% if m.ding == "1" %}
+                                                    <span class="jinsom-mark" style="background-color: #1E9FFF;border-radius: 2px;cursor: pointer;vertical-align: 2px;">
+                                                        顶
+                                                    </span>
+                                                {% endif %}
+                                                {% if m.tui == "1" %}
+                                                    <span class="jinsom-mark" style="background-color: #c11c06;border-radius: 2px;cursor: pointer;vertical-align: 2px;">
+                                                        荐
+                                                    </span>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </span>
+                                </div>
+                                <div style="height: 50%;width: 100%;">
+                                    <span>发布时间：{{ i.postTime }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-right: 6px;height: 220px; margin-top: 20px;margin-left: 6px">
+                            <div style="width: 100%;height: 90%;background-color: #f5f0ef;word-wrap:break-word;overflow: auto;">
+                                <h4>#{{ i.title }}</h4>
+                                <p>
+                                    {{ i.body|striptags|truncate }}
+                                    <small><a href={{ url_for("homeapp.match", post_id = i.id) }}>了解更多</a></small>
+                                </p>
+                            </div>
+                            <div style="width: 100%;height: 8%;margin-bottom: 2%;display: flex">
+                                <div style="width: 100px;height: 100%;margin-right: 20px;background-color: #f5f0ef;text-align: center">
+                                    <span style="text-align: center"><i class="glyphicon glyphicon-heart-empty"></i>&nbsp;{{ i.love }}</span>
+                                </div>
+                                <div style="width: 100px;height: 100%;margin-right: 20px;background-color: #f5f0ef;text-align: center">
+                                    <span style="text-align: center"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;{{ i.seenum }}</span>
+                                </div>
+                                <div style="width: 100px;height: 100%;margin-right: 20px;background-color: #f5f0ef;text-align: center">
+                                    <span style="text-align: center"><i class="glyphicon glyphicon-list"></i>&nbsp;{{ i.disnum }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+        {% endfor %}
+
+
+    <div style="width: 100%">
+                        当前页数：{{ pagination.page }}|&nbsp;总页数：{{ pagination.pages }}|&nbsp;<br>
+                        {% if pagination.has_prev %}
+                            <a href="{{ url_for('homeapp.index', page=pagination.page - 1) }}">上一页</a>
+                        {% endif %}
+                        页码：
+                        {% for i in pagination.iter_pages() %}
+                            <a href="{{ url_for('homeapp.index')}}?page={{ i }}">{{ i }}</a>
+                        {% endfor %}
+                        {% if pagination.has_next %}
+                            <a href="{{ url_for('homeapp.index', page=pagination.page + 1) }}">下一页</a>
+                        {% endif %}
+        <div class="div">
+            <ul class="footer-column-t">
+                <li class="li"><a href="#">关于我们</a></li>
+                <li class="li"><a href="mailto: 2251798294@qq.com">找我合作</a> </li>
+            </ul>
+            <ul class="column-b">
+                <li class="li"><a href="http://beian.miit.gov.cn">赣ICP备2021004042号</a></li>
+            </ul>
+        </div>
+    </div>
+    </div>
+</div>
+</body>
+</html>

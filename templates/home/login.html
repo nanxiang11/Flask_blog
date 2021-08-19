@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登入界面</title>
+    <link rel="shortcut icon" href="../../static/img/index/bitbug_favicon.ico" type="image/x-icon">
+    <link rel="bookmark" href="../../static/img/index/bitbug_favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .div{
+            margin-top: 20px;
+            width: 100%;
+            -webkit-box-shadow: 0 -1px 0 0 rgb(0 0 0 / 5%);
+            box-shadow: 0 -1px 0 0 rgb(0 0 0 / 5%);
+            padding: 24px 34px 20px;
+            color: #202223;
+        }
+        .footer-column-t {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+        .li {
+            margin: 0 8px;
+            color: #999aaa;
+            font-size: 14px;
+            height: 16px;
+            line-height: 16px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+        .column-b {
+            margin-top: 8px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+        .body1{
+            background-color: #535346;
+            background-repeat:no-repeat;
+            background-position: center center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        .div1{
+            background-image: linear-gradient(to right, rgba(87,87,84,0), rgba(156, 152, 152, 1));
+            width: 300px;
+            height: 420px;
+            border-radius:25px;
+            margin: auto;
+            top: 0; left: 0; bottom: 0; right: 0;
+            position: absolute;
+        }
+        .hr1{
+            border: 4px solid green;
+            border-radius: 2px;
+        }
+        .input1 {
+            -moz-box-shadow:0 0 10px #06c;
+            -webkit-box-shadow:0 0 10px #06c;
+            box-shadow:0 0 10px #06c;
+            margin: auto;
+        }
+        .input2 {
+            -moz-box-shadow:0 0 10px #06c;
+            -webkit-box-shadow:0 0 10px #06c;
+            box-shadow:0 0 10px #06c;
+            margin: auto;
+            width: 80px;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body class="body1">
+        {% for message in get_flashed_messages() %}
+            <h1>{{ message }}</h1>
+        {% endfor %}
+<div class="container">
+    </div>
+    <div class="div1">
+        <div style="text-align: center">
+            <span style="font-size: 30px">脑洞论坛</span>
+            <img src="../../static/img/long.gif" width="40" height="40" alt="" style="float: right">
+        </div>
+        <hr class="hr1">
+        <div class="text-center">
+            <h3>会员登入</h3>
+            <p><span style="color: coral; width: 200px">________________________</span></p>
+        </div>
+        <div>
+          <form action=""  method="post"   role="form">
+              {{ form.csrf_token }}
+              <div style="text-align:center;vertical-align:middle;">
+
+                  <div class="form-group">
+                      {{form.username(class='input1')}}
+                          {% for e in form.username.errors %}
+                            <span style="color: darkred">{{ e }}</span>
+                          {% endfor %}
+                  </div>
+
+                  <div class="form-group">
+                      {{form.userPassword(class='input1')}}
+                  </div>
+                  <div class="form-group">
+                      {{form.wordPassword(class='input2')}}
+                      <img  src="/code" onclick="this.src='/code?'+ Math.random()"><br>
+                  </div>
+                  <div>
+                      {{form.submit(class='btn btn-success')}}
+                  </div>
+              </div>
+        </form>
+        </div>
+        <div>
+            <a href="{{ url_for("homeapp.post") }}"><h5 style="float: right; color: darkred">注册会员</h5></a>
+            <a href="{{ url_for("homeapp.forgetpassword") }}"><h5 style="float: left; color: darkred">忘记密码？</h5> </a>
+        </div>
+        <div class="div">
+            <ul class="footer-column-t">
+                <li class="li"><a href="#" style="color: #202223;">关于我们</a></li>
+                <li class="li"><a href="mailto: 2251798294@qq.com" style="color: #202223;">找我合作</a> </li>
+            </ul>
+            <ul class="column-b">
+                <li class="li"><a href="http://beian.miit.gov.cn" style="color: #202223;">赣ICP备2021004042号</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

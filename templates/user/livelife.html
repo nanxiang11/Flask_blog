@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动态生活-脑洞</title>
+    <link rel="shortcut icon" href="../../static/img/index/bitbug_favicon.ico" type="image/x-icon">
+    <link rel="bookmark" href="../../static/img/index/bitbug_favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+	        var x = 10;
+	        var y = 20;
+	        $("[id = big-circle]").mouseover(function (e) {
+	            var tooTip = "<div id='tooTip'><img src='" + this.src + "' ></img><div>";
+	            $("body").append(tooTip);
+	            $("#tooTip").css({ position: "absolute",
+	                'top': (e.pageY + y) + "px", "left": (e.pageX + x) + "px"
+	            }).show("fast");
+	        }).mouseout(function () {
+	            	            $("#tooTip").remove();
+	        }).mousemove(function (e) {
+	            $("#tooTip").css({ position: "absolute",
+	                'top': (e.pageY + y) + "px", "left": (e.pageX + x) + "px"
+	            });
+	        });
+
+	    });
+    </script>
+    <style type="text/css">
+        .jinsom-header {
+            background-color: #202223;
+            width: 100%;
+            margin: auto;
+            color: #fff;
+            height: 60px;
+            overflow: hidden;  /*清除浮动*/
+        }
+        .div{
+            margin: 0 auto;
+            width: 100%;
+            -webkit-box-shadow: 0 -1px 0 0 rgb(0 0 0 / 5%);
+            box-shadow: 0 -1px 0 0 rgb(0 0 0 / 5%);
+            padding: 24px 34px 20px;
+        }
+        .footer-column-t {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+        .li {
+            margin: 0 8px;
+            color: #999aaa;
+            font-size: 14px;
+            height: 16px;
+            line-height: 16px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+        .column-b {
+            margin-top: 8px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+        .imgurl2{
+            display: block;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+        .jinsom-mark {
+            min-width: 8px;
+            border-radius: 9px;
+            display: inline-block;
+            font-size: 12px;
+            line-height: 18px;
+            padding: 0 5px;
+            margin-left: 2px;
+            color: #fff;
+        }
+        .jinsom-post-bar li {
+            float: left;
+            position: relative;
+            line-height: 32px;
+            font-size: 15px;
+            cursor: pointer;
+            color: #9c9898;
+            margin-right: 40px;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="container">
+    <div style="width: 100%;height: 60px;background-color: #1a1918;display: flex">
+        <div style="width: 50%;height: 100%;text-align: left">
+            <span style="font-size: 40px;color: #f5f0ef">CREATE</span>
+        </div>
+        <div style="width: 50%;height: 100%;text-align: right">
+            <span style="font-size: 40px; color: #f5f0ef">ONESELF</span>
+        </div>
+    </div>
+    <div style="width: 100%;margin-top: 10px;margin-bottom: 10px;display: flex">
+        <div><a href="{{ url_for("homeapp.index") }}"  class="btn btn-info">返回首页</a></div>
+        <div style="width: 10px"></div>
+        <div>
+            <a href="{{ url_for("homeapp.editlive") }}"  class="btn btn-info">发布动态</a>
+        </div>
+    </div>
+    <div style="background-color: #f8eae8;width: 100%;height: 1200px;border-radius: 4px">
+        <div style="width: 100%;height: 1800px;padding: 20px 20px 20px 20px;background-color: #f5f0ef;border-radius: 4px;;word-wrap:break-word;overflow: auto">
+            {% for i in query %}
+                <div style="width: 100%; max-height: 800px; background-color: #d9d5d5;border-radius: 4px;padding: 8px 8px 8px 8px;">
+                    <div style="width: 100%;height: 80px;display: flex">
+                        <div style="height: 100%;width: 60px;">
+                            {% for j in q2 %}
+                                {% if i.user_id == j.id %}
+                                    <img src="{{ j.imgurl }}" class="imgurl2" alt="">
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div style="height: 100%;width: 210px;margin-left: 6px;margin-top: 6px">
+                            <div style="height: 50%;width: 100%;">
+                                {% for j in q2 %}
+                                    {% if i.user_id == j.id %}
+                                        <a href="#" style="font-size: 16px;color: #202223">{{ j.studentName }}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div style="height: 50%;width: 100%;">
+                                <span>发布时间：{{ i.postTime }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width: 100%;max-heigh: 720px">
+                        <div style="width: 100%;max-height: 200px;background-color: #f5f0ef;border-radius: 4px;padding: 8px 8px 8px 8px">
+                            {{ i.body }}
+                        </div>
+                        <div style="width: 100%;max-heigh: 520px;display: flex">
+                            <div style="width: 100%;max-height: 520px;display: flex" class="center-block">
+                                {% for m in i.imgurl|change %}
+                                    {% if i.imgurl|change|numcount == 1 %}
+                                        <div style="max-width: 1000px;max-height: 500px;padding: 10px 10px 10px 10px">
+                                            <img src="{{ m }}" width="500" height="480" class="img-responsive img-rounded" alt="Responsive image" id="big-circle">
+                                        </div>
+                                    {% endif %}
+                                    {% if i.imgurl|change|numcount == 2 %}
+                                        <div style="max-width: 1000px;max-height: 500px;padding: 10px 10px 10px 10px">
+                                            <img src="{{ m }}" width="500" height="480" class="img-rounded" alt="Responsive image" id="big-circle">
+                                        </div>
+                                    {% endif %}
+                                    {% if i.imgurl|change|numcount == 3 %}
+                                        <div style="max-width: 1000px;max-height: 500px;padding: 10px 10px 10px 10px">
+                                            <img src="{{ m }}" width="310" height="330" class=" img-rounded" alt="Responsive image" id="big-circle">
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="width: 100%;height: 20px"></div>
+            {% endfor %}
+        </div>
+        <div style="width: 100%">
+            当前页数：{{ pagination.page }}|&nbsp;总页数：{{ pagination.pages }}|&nbsp;一共拥有{{ pagination.total }}条数据<br>
+            {% if pagination.has_prev %}
+                <a href="{{ url_for('homeapp.livelife', page=pagination.page - 1) }}">上一页</a>
+            {% endif %}
+            页码：
+            {% for i in pagination.iter_pages() %}
+                <a href="{{ url_for('homeapp.livelife')}}?page={{ i }}">{{ i }}</a>
+            {% endfor %}
+            {% if pagination.has_next %}
+                <a href="{{ url_for('homeapp.livelife', page=pagination.page + 1) }}">下一页</a>
+            {% endif %}
+        <div class="div">
+    </div>
+    <div class="div">
+            <ul class="footer-column-t">
+                <li class="li"><a href="#">关于我们</a></li>
+                <li class="li"><a href="mailto: 2251798294@qq.com">找我合作</a> </li>
+            </ul>
+            <ul class="column-b">
+                <li class="li"><a href="http://beian.miit.gov.cn">赣ICP备2021004042号</a></li>
+            </ul>
+    </div>
+</div>
+</body>
+</html>

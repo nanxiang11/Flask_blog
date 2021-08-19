@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>资料编辑中心</title>
+    <link rel="shortcut icon" href="../../static/img/index/bitbug_favicon.ico" type="image/x-icon">
+    <link rel="bookmark" href="../../static/img/index/bitbug_favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .div{
+            margin: 0 auto;
+            width: 100%;
+            -webkit-box-shadow: 0 -1px 0 0 rgb(0 0 0 / 5%);
+            box-shadow: 0 -1px 0 0 rgb(0 0 0 / 5%);
+            padding: 24px 34px 20px;
+        }
+        .footer-column-t {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+        .li {
+            margin: 0 8px;
+            color: #999aaa;
+            font-size: 14px;
+            height: 16px;
+            line-height: 16px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+        .column-b {
+            margin-top: 8px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+        .input2 {
+            width: 400px;
+            height:100px;
+            -moz-box-shadow:0 0 10px #06c;
+            -webkit-box-shadow:0 0 10px #06c;
+            box-shadow:0 0 10px #06c;
+            margin: auto;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="container">
+    <div style="margin: auto; border-radius: 20px; background-color: rgba(246,245,245,0)">
+        <form method="post" enctype="multipart/form-data">
+            {{ form.csrf_token }}
+            <div style="width: 80%;height: 140px;display: flex;">
+                <div style="width:92px;height: 92px; background-color: #f5f0ef">
+                    <img src="{{ query[0].imgurl }}" width="92px" height="92px">
+                    {{ form.file }}
+                </div>
+                <div style="text-align: center"><span style="font-size: 40px;color: #2d2b25">{{ request.cookies.get("user") }}</span>
+                </div>
+            </div>
+            <div class="form-group">{{ form.aboutme(class="input2") }}</div>
+            <div class="form-group">{{ form.upload(class="btn btn-success") }}</div>
+
+        </form>
+    </div>
+    <div class="div">
+            <ul class="footer-column-t">
+                <li class="li"><a href="#">关于我们</a></li>
+                <li class="li"><a href="mailto: 2251798294@qq.com">找我合作</a> </li>
+            </ul>
+            <ul class="column-b">
+                <li class="li"><a href="http://beian.miit.gov.cn">赣ICP备2021004042号</a></li>
+            </ul>
+    </div>
+</div>
+</body>
+</html>

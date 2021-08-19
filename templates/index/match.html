@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>脑洞-文章</title>
+    <link rel="shortcut icon" href="../../static/img/index/bitbug_favicon.ico" type="image/x-icon">
+    <link rel="bookmark" href="../../static/img/index/bitbug_favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .div{
+            margin-top: 10px;
+            width: 100%;
+            -webkit-box-shadow: 0 -1px 0 0 rgb(0 0 0 / 5%);
+            box-shadow: 0 -1px 0 0 rgb(0 0 0 / 5%);
+            padding: 24px 34px 20px;
+        }
+        .footer-column-t {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+        .li {
+            margin: 0 8px;
+            color: #999aaa;
+            font-size: 14px;
+            height: 16px;
+            line-height: 16px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+        .column-b {
+            margin-top: 8px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+        .jinsom-header {
+            background-color: #202223;
+            width: 100%;
+            margin: auto;
+            color: #fff;
+            height: 60px;
+            overflow: hidden;  /*清除浮动*/
+        }
+        .logo {
+            width: 60%;
+            float: left;
+            height: 100%;
+            text-align: left;
+        }
+        .lift{
+            float: right;
+            width: 40%;
+            height: 100%;
+            text-align: right;
+        }
+        .lift2{
+            float: right;
+            width: 100%;
+            height: 100%;
+            text-align: right;
+        }
+
+        .imgurl{
+                display: block;
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+        }
+        .imgurl2{
+                display: block;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+        }
+        .match{
+            width: 100%;
+            border-radius: 8px;
+            min-height: 400px;
+            margin-bottom: 10px;
+            background-color: #f5f0ef;
+        }
+        .jinsom-mark {
+            min-width: 8px;
+            border-radius: 9px;
+            display: inline-block;
+            font-size: 12px;
+            line-height: 18px;
+            padding: 0 5px;
+            margin-left: 2px;
+            color: #fff;
+        }
+        .jinsom-post-bar li {
+            float: left;
+            position: relative;
+            line-height: 32px;
+            font-size: 15px;
+            cursor: pointer;
+            color: #9c9898;
+            margin-right: 40px;
+        }
+        .form{
+            width: 100%;
+            height: 80px;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="background-color: #c1bdbd">
+<div class="container">
+    <div class="jinsom-header">
+        <div class="logo"><span style="color: #f5f0ef;font-size: 40px"><a href="#" style="color: #f5f0ef">NAODONG</a></span></div>
+        {% if 'student' not in session %}
+            <div class="lift"><a href="{{ url_for("homeapp.login") }}" class="btn btn-info">登入</a>&nbsp;&nbsp;
+                <a href="{{ url_for("homeapp.post") }}" class="btn btn-danger" >注册</a>
+            </div>
+        {% else %}
+            <div class="lift">
+                <div style="height: 48px;width: 68px;margin-left: auto;">
+                    <img src="{{ q[0].imgurl }}" class="imgurl" alt="">
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div style="width: 100%; height: 30px; margin-top: 10px; margin-bottom: 10px;">
+        <a href="{{ url_for("homeapp.index") }}" class="btn btn-info">返回</a>
+    </div>
+    <div style="width: 100%;: #f5f0ef;">
+            <div class="match">
+                <div style="width: 100%;height: 60px;display: flex">
+                    <div style="height: 100%;width: 60px;">
+                        {% for j in q2 %}
+                            {% if body.user_id == j.id %}
+                                <img src="{{ j.imgurl }}" class="imgurl2" alt="">
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div style="height: 100%;width: 210px;margin-left: 6px">
+                        <div style="height: 50%;width: 100%;">
+                            {% for j in q2 %}
+                                {% if body.user_id == j.id %}
+                                    <a href="#" style="font-size: 16px;color: #202223">{{ j.studentName }}</a>
+                                {% endif %}
+                            {% endfor %}
+                            <span class="jinsom-mark">
+                                {% for m in v %}
+                                    {% if body.vp_id == m.id %}
+                                        <span style="background: #FFB800;" class="jinsom-mark">用户vip{{ m.vip }}</span>
+                                        {% if m.manage == "1" %}
+                                            <span style="background: #117d1b;" class="jinsom-mark">官方</span>
+                                        {% endif %}
+                                        {% if m.ding == "1" %}
+                                            <span class="jinsom-mark" style="background-color: #1E9FFF;border-radius: 2px;cursor: pointer;vertical-align: 2px;">
+                                                顶
+                                            </span>
+                                        {% endif %}
+                                        {% if m.tui == "1" %}
+                                            <span class="jinsom-mark" style="background-color: #c11c06;border-radius: 2px;cursor: pointer;vertical-align: 2px;">
+                                                荐
+                                            </span>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </span>
+                        </div>
+                        <div style="height: 50%;width: 100%;">
+                            <span>发布时间：{{ body.postTime }}</span>
+                        </div>
+
+                    </div>
+                    <div style="height: 100%;width: 100px">
+                        <a href="{{ url_for("homeapp.sentEM", user_id=q[0].id, recevice_id=body.user_id, match_id=post_id ) }}" class="btn btn-success btn-xs">私信</a>
+                    </div>
+                </div>
+                <div style="min-height: 320px; margin-top: 20px;margin-left: 10px;margin-right: 10px">
+                    <div style="width: 100%;height: 90%;word-wrap:break-word;overflow: auto;background-color: #e3d8d1; border-radius: 4px;box-shadow: darkgrey 0px 0px 10px 2px inset;//边框内阴影">
+                        <h4>#{{ body.title }}</h4><br><br>
+                        {{ body.body|safe }}
+                    </div>
+                    <div style="width: 100%;height: 8%;margin-bottom: 2%;display: flex">
+                        <div style="width: 100px;height: 100%;margin-right: 20px;background-color: #f5f0ef;text-align: center">
+                            <span style="text-align: center"><i class="glyphicon glyphicon-heart-empty"></i>&nbsp;{{ body.love }}</span>
+                        </div>
+                        <div style="width: 100px;height: 100%;margin-right: 20px;background-color: #f5f0ef;text-align: center">
+                            <span style="text-align: center"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;{{ body.seenum }}</span>
+                        </div>
+                        <div style="width: 100px;height: 100%;margin-right: 20px;background-color: #f5f0ef;text-align: center">
+                            <span style="text-align: center"><i class="glyphicon glyphicon-list"></i>&nbsp;{{ body.disnum }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <div style="width: 100%;height: 200px;margin-top: 20px;background-color: #f5f0ef">
+        <div style="width: 100%;height: 18px;background-color: #f8da8d;text-align: center"></div>
+        <div style="width: 100%;height: 180px">
+            {% if 'student' not in session %}
+                <div style="margin: auto;margin-top: 80px;text-align: center">
+                    <h3 style="color: #8d2016">请先登入之后在评论</h3>
+                    <a href="{{ url_for("homeapp.login") }}" class="btn btn-info">登入</a>
+                </div>
+            {% else %}
+                <div class="lift2">
+                    <div style="height: 48px;width: 50%;margin-right: auto;display: flex">
+                        <div>
+                            <img src="{{ q[0].imgurl }}" class="imgurl" alt="">
+                        </div>
+                        <div style="width: 50px;height: 100%">
+                            <div style="width: 100%;height: 50%">
+                                {% if q[0].id == body.user_id %}
+                                    <span style="background: #7d1127;" class="jinsom-mark">作者</span>
+                                {% else %}
+                                    <span style="background: #065a63;" class="jinsom-mark">成员</span>
+                                {% endif %}
+                            </div>
+                            <div style="height: 50%;width: 100%">
+                                <span style="font-size: 16px;">{{ q[0].studentName }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-left: 12px;height: 120px;background-color: #f5ca76;margin-top:4px;margin-right: 12px">
+                        <form method="post">
+                            {{ form.csrf_token }}
+                            <div style="width: 100%;height: 80%">
+                                {{ form.body(class='form') }}
+                            </div>
+                            <div style="width: 100%;height: 20%">
+                                {{ form.sent(class='btn btn-success') }}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div>
+    </div>
+    {% for n in r %}
+        {% if body.id == n.replymatch_id %}
+            {% if n.replyuser_id == body.user_id and n.replyself_id == 0 %}
+                <div style="width: 100%;margin-top: 20px;background-color: #f5f0ef;height: 150px">
+                    <div style="margin-top: 8px;margin-left: 8px;margin-right: 8px;height: 140px;word-wrap:break-word;overflow: auto;">
+                        {% for m in q2 %}
+                            {% if n.user_id == m.id %}
+                                <div style="height: 48px;width: 50%;margin-right: auto;display: flex">
+                                    <div>
+                                        <img src="{{ m.imgurl }}" class="imgurl" alt="">
+                                    </div>
+                                    <div style="width: 50px;height: 100%">
+                                        <div style="width: 100%;height: 50%">
+                                            {% if m.id == body.user_id %}
+                                                <span style="background: #7d1127;" class="jinsom-mark">作者</span>
+                                            {% else %}
+                                                <span style="background: #065a63;" class="jinsom-mark">成员</span>
+                                            {% endif %}
+                                        </div>
+                                        <div style="height: 50%;width: 100%">
+                                            <span style="font-size: 16px;">{{ m.studentName }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        {% for m in q2 %}
+                            {% if n.user_id == m.id %}
+                                <div style="margin-right: 8px;margin-left: 8px;word-wrap:break-word;overflow: auto;">
+                                    <div style="width: 100%">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;{{ n.body }}<br>
+                                        <a href="{{ url_for("homeapp.reply", match_id=body.id, replyuser_id=m.id, replyself_id=n.id) }}" class="btn btn-info" style="float: right">回复</a>
+                                    </div><hr>
+                                    {% for k in r %}
+                                        {% if n.id == k.replyself_id %}
+                                            <div style="width: 95%;float: right">
+                                                {% for m in q2 %}
+                                                    {% if k.user_id == m.id %}
+                                                        <div style="height: 48px;width: 100%;margin-right: auto;display: flex">
+                                                            <div>
+                                                                <img src="{{ m.imgurl }}" class="imgurl" alt="">
+                                                            </div>
+                                                            <div style="width: 50px;height: 100%">
+                                                                <div style="width: 100%;height: 50%">
+                                                                    {% if m.id == body.user_id %}
+                                                                        <span style="background: #7d1127;" class="jinsom-mark">作者</span>
+                                                                    {% else %}
+                                                                        <span style="background: #065a63;" class="jinsom-mark">成员</span>
+                                                                    {% endif %}
+                                                                </div>
+                                                                <div style="height: 50%;width: 100%">
+                                                                    <span style="font-size: 16px;">{{ m.studentName }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div style="height: 100%;">
+                                                                <div style="height: 25px;word-wrap:break-word;overflow: auto">{{ k.body }}</div>
+                                                                <div style="height: 50%;"><a href="{{ url_for("homeapp.reply", match_id=body.id, replyuser_id=m.id, replyself_id=k.id) }}" class="btn btn-info btn-sm">回复</a></div>
+                                                            </div>
+                                                        </div><hr>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% for qw in r %}
+                                                    {% if k.id == qw.replyself_id %}
+                                                        <div style="width: 80%;float: right">
+                                                            {% for m in q2 %}
+                                                                {% if qw.user_id == m.id %}
+                                                                    <div style="height: 48px;width: 100%;margin-right: auto;display: flex">
+                                                                        <div>
+                                                                            <img src="{{ m.imgurl }}" class="imgurl" alt="">
+                                                                        </div>
+                                                                        <div style="width: 50px;height: 100%">
+                                                                            <div style="width: 100%;height: 50%">
+                                                                                {% if m.id == body.user_id %}
+                                                                                    <span style="background: #7d1127;" class="jinsom-mark">作者</span>
+                                                                                {% else %}
+                                                                                    <span style="background: #065a63;" class="jinsom-mark">成员</span>
+                                                                                {% endif %}
+                                                                            </div>
+                                                                            <div style="height: 50%;width: 100%">
+                                                                                <span style="font-size: 16px;">{{ m.studentName }}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div style="height: 100%;">
+                                                                            <div style="height: 25px;word-wrap:break-word;overflow: auto">{{ qw.body }}</div>
+                                                                            <div style="height: 50%;"><a href="{{ url_for("homeapp.reply", match_id=body.id, replyuser_id=m.id, replyself_id=k.id) }}" class="btn btn-info btn-sm">回复</a></div>
+                                                                        </div>
+                                                                    </div><hr>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    </div>
+    <div class="div">
+        <ul class="footer-column-t">
+            <li class="li"><a href="#" style="color: #202223;">关于我们</a></li>
+            <li class="li"><a href="mailto: 2251798294@qq.com" style="color: #202223;">找我合作</a> </li>
+        </ul>
+        <ul class="column-b">
+            <li class="li"><a href="http://beian.miit.gov.cn" style="color: #202223;">赣ICP备2021004042号</a></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>高危病毒！</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .div{
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            margin-top: 100px;
+            background-color: #f5f0ef;
+            width: 300px;
+            height: 200px;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="container">
+    <div style="height: 600px;width: 100%;">
+        <div class="div" >
+            <form method="post">
+                {{ form.csrf_token }}
+                    <div style="height: 60px;text-align: center;" class="form-group form">
+                        {{ form.name(class="form-control") }}
+                    </div>
+                    <div style="height: 60px;text-align: center" class="form-group form">
+                        {{ form.password(class="form-control") }}
+                    </div>
+                    <div style="height: 60px;text-align: center" class="form-group form">
+                        {{ form.submit(class="btn btn-danger") }}
+                    </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

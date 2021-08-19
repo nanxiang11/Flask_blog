@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>脑洞—畅聊</title>
+    <link rel="shortcut icon" href="../../static/img/index/bitbug_favicon.ico" type="image/x-icon">
+    <link rel="bookmark" href="../../static/img/index/bitbug_favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#div1").hide();
+          $("#massage").mousedown(function(){
+              $("#div2").hide();
+            alert('有：' + {{ num }} + '条私信');
+            $("#div1").show();
+          });
+        });
+    </script>
+    <script>
+        $(document).ready(function(){
+          $("#close").mousedown(function(){
+            $("#div1").hide();
+          });
+        });
+    </script>
+    <script>
+        {% for a in query %}
+            $(document).ready(function(){
+                $("[id = p{{ a.id }}]").hide();
+                $("[id = s{{ a.id }}]").hide();
+                $("#div2").hide();
+              $("[id = bn{{ a.id }}]").mousedown(function(){
+                  $("#div2").show();
+                  $("#div1").hide();
+                  {#alert($("#sp1").text());#}
+                  var data={
+                        'user_id':$("[id = s{{ a.id }}]").text(),
+                        're':$("[id = p{{ a.id }}]").text(),
+                  }
+                  $.ajax({
+                        type:'GET',
+                        url:'{{url_for("userapp.userresg")}}',
+                        data:data,
+                        dataType:'json',//希望服务器返回json格式的数据
+                        success:function(data){
+                            alert(JSON.stringify(data));
+                        }
+                  });
+              });
+            });
+        {% endfor %}
+
+    </script>
+    <style type="text/css">
+        .div{
+            margin-top: 10px;
+            width: 100%;
+            -webkit-box-shadow: 0 -1px 0 0 rgb(0 0 0 / 5%);
+            box-shadow: 0 -1px 0 0 rgb(0 0 0 / 5%);
+            padding: 24px 34px 20px;
+        }
+        .footer-column-t {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+        .li {
+            margin: 0 8px;
+            color: #999aaa;
+            font-size: 14px;
+            height: 16px;
+            line-height: 16px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+        .column-b {
+            margin-top: 8px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+        .usermessage{
+            margin-top: 20px;
+            margin-left: 40px;
+            margin-right: 40px;
+            padding-top: 8px;
+            padding-left: 8px;
+            padding-right: 8px;
+            height: 80px;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: darkgrey 0px 0px 10px 2px inset;
+        }
+        .form{
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="container">
+    <div style="height: 600px;margin-right: 20px;margin-left: 20px;background-color: #e3d8d1; border-radius: 4px;box-shadow: darkgrey 0px 0px 10px 2px inset;">
+        <div style="margin-right:10px;margin-left:10px;background-color: white;height: 580px;border-radius: 4px">
+            <div style="width: 100%;height: 60px;display: flex">
+                <div id="massage" style="width: 120px;height: 60px;padding-top: 10px;padding-left: 10px;background-color: white" >
+                    <span class="glyphicon glyphicon-envelope" style="font-size: 50px " ></span>
+                </div>
+                <div id="massage2" style="width: 120px;height: 60px;padding-top: 10px;padding-left: 10px;margin-left: 10%;">
+                    <span class="glyphicon glyphicon-comment" style="font-size: 50px"></span>
+                </div>
+            </div>
+            <div style="width: 100%;height: 2px;background-color: #202223;margin-top: 10px;margin-bottom: 10px"></div>
+            <div id="div1" style="width: 100%;height: 500px;background-color: #e0781d;word-wrap:break-word;overflow: auto;">
+                <div style="float: right">
+                    <span id="close" class="glyphicon glyphicon-remove"></span>
+                </div>
+                {% for reply in query %}
+                    <div class="usermessage">
+                        <div style="width: 100%;height: 40%">
+                            {% for usertell in q2 %}
+                                {% if reply.user_id == usertell.id %}
+                                    <span id="s{{ reply.id }}">{{ usertell.id }}</span><span id="p{{ reply.id }}">{{ reply.id }}</span>
+                                    <span>{{ usertell.studentName }}</span>&nbsp;&nbsp;<span>私信你</span>&nbsp;&nbsp;{{ reply.postTime }}
+                                    {% if reply.tfred == 0 %}
+                                        <span style="float: right">未读</span>
+                                        <button id="bn{{ reply.id }}" class="btn btn-info btn-xs" style="float: right">回复</button>
+                                    {% else %}
+                                        <span style="float: right">已读</span>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div style="width: 100%;height: 60%">
+                            <span style="margin-left: 20px"><strong>{{ reply.body }}</strong></span>
+                        </div>
+
+                    </div>
+                {% endfor %}
+            </div>
+            <div id="div2" style="width: 100%;height: 500px;background-color: #e0781d;">
+                <form method="post">
+                    {{ form.csrf_token }}
+                        <div style="width: 80%;height: 160px;margin: auto;background-color: white;border-radius: 8px">
+                            {{ form.body(class="form") }}
+                        </div>
+                        <div style="text-align: center">
+                            {{ form.Reply(class='btn btn-success') }}
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div>
+        当前页数：{{ pagination.page }}|&nbsp;总页数：{{ pagination.pages }}|&nbsp;一共拥有{{ pagination.total }}条数据<br>
+                        {% if pagination.has_prev %}
+                            <a href="{{ url_for('userapp.userresg', page=pagination.page - 1) }}">上一页</a>
+                        {% endif %}
+                        页码：
+                        {% for i in pagination.iter_pages() %}
+                            <a href="{{ url_for('userapp.userresg')}}?page={{ i }}">{{ i }}</a>
+                        {% endfor %}
+                        {% if pagination.has_next %}
+                            <a href="{{ url_for('userapp.userresg', page=pagination.page + 1) }}">下一页</a>
+                        {% endif %}
+    </div>
+    <div class="div">
+        <ul class="footer-column-t">
+            <li class="li"><a href="#" style="color: #202223;">关于我们</a></li>
+            <li class="li"><a href="mailto: 2251798294@qq.com" style="color: #202223;">找我合作</a> </li>
+        </ul>
+        <ul class="column-b">
+            <li class="li"><a href="http://beian.miit.gov.cn" style="color: #202223;">赣ICP备2021004042号</a></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

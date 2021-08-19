@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>危险病毒！</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .div{
+            margin-top: 10px;
+            width: 100%;
+            -webkit-box-shadow: 0 -1px 0 0 rgb(0 0 0 / 5%);
+            box-shadow: 0 -1px 0 0 rgb(0 0 0 / 5%);
+            padding: 24px 34px 20px;
+            background-color: #f5f0ef;
+        }
+        .footer-column-t {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+        .li {
+            margin: 0 8px;
+            color: #999aaa;
+            font-size: 14px;
+            height: 16px;
+            line-height: 16px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+        .column-b {
+            margin-top: 8px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+        .jinsom-mark {
+            min-width: 8px;
+            border-radius: 9px;
+            display: inline-block;
+            font-size: 12px;
+            line-height: 18px;
+            padding: 0 5px;
+            margin-left: 2px;
+            color: #fff;
+        }
+        .imgurl2{
+                display: block;
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+        }
+        .hr2{
+            border: 2px solid #1b1c1b;
+        }
+        .table{
+            width: 90%;
+            height: 50px;
+        }
+        .form{
+            width: 30%;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+<body style="background-color: #fffdfd">
+<div class="container">
+    <div style="width: 1140px">
+        <div style="width: 1140px;height: 80px;background-color: #202223;display: flex">
+            <div style="width: 570px;height: 100%;text-align: center">
+                <span style="font-size: 40px;color: #f5f0ef">BRAIN</span>
+            </div>
+            <div style="width: 570px;height: 100%;text-align: center">
+                <span style="font-size: 40px;color: #f5f0ef">ADMIN</span>
+            </div>
+        </div>
+        <form method="post">
+            {{ form.csrf_token }}
+                <div style="width: 1140px;height: 40px;margin-top: 10px;margin-bottom: 10px;display: flex">
+                    <div class="form-group form" style="margin-left: 31%">
+                        {{ form.message(class="form-control") }}
+                    </div>
+                    <div class="form-group form">
+                        {{ form.sent(class="btn btn-danger") }}
+                    </div>
+                </div>
+        </form>
+        <div style="background-color: #f6f2ed;width: 100%;height: 500px;word-wrap:break-word;overflow: auto;">
+            {% for q in usermsg %}
+                {% for w in uservp %}
+                    {% if q.id == w.user_id %}
+                        <div style="margin-top: 10px;margin-left: 20px;margin-right: 20px;height: 60px;display: flex;">
+                            <div style="width: 60px;height: 100%;display: flex">
+                                <img src="{{ q.imgurl }}" class="imgurl2" alt="">
+                            </div>
+                            <div style="height: 100%;width: 160px;">
+                                <div style="height: 35%;width: 100%;display: flex">
+                                    <span style="background: #FFB800;" class="jinsom-mark">用户vip{{ w.vip }}</span>
+                                        {% if w.manage == "1" %}
+                                            <span style="background: #117d1b;" class="jinsom-mark">官方</span>
+                                        {% endif %}
+                                        {% if w.ding == "1" %}
+                                            <span class="jinsom-mark" style="background-color: #1E9FFF;border-radius: 2px;cursor: pointer;vertical-align: 2px;">
+                                                顶
+                                            </span>
+                                        {% endif %}
+                                        {% if w.tui == "1" %}
+                                            <span class="jinsom-mark" style="background-color: #c11c06;border-radius: 2px;cursor: pointer;vertical-align: 2px;">
+                                                荐
+                                            </span>
+                                        {% endif %}
+                                </div>
+                                <div style="height: 65%;width: 100%;text-align: left">
+                                    <span style="font-size: 20px">{{ q.studentName }}</span>
+                                </div>
+                            </div>
+                            <div style="height: 100%;width: 550px;">
+                                <table border="1" class="table">
+                                    <tr style="background-color: #f8ae9f">
+                                        <th style="text-align:center;vertical-align:middle;">文章数量</th>
+                                        <th style="text-align:center;vertical-align:middle;">文章被评论数量</th>
+                                        <th style="text-align:center;vertical-align:middle;">文章被喜欢数量</th>
+                                        <th style="text-align:center;vertical-align:middle;">文章被浏览数量</th>
+                                        <th style="text-align:center;vertical-align:middle;">是否在线</th>
+                                    </tr>
+                                    <tr>
+                                        {% for qe in usermatch %}
+                                            {% if q.id == qe.user_id %}
+                                                <td style="text-align:center;vertical-align:middle;">{{ qe.matchnum }}</td>
+                                                <td style="text-align:center;vertical-align:middle;">{{ qe.disnum }}</td>
+                                                <td style="text-align:center;vertical-align:middle;">{{ qe.lovenum }}</td>
+                                                <td style="text-align:center;vertical-align:middle;">{{ qe.seenum }}</td>
+                                                {% if qe.online == "1" %}
+                                                    <td style="text-align:center;vertical-align:middle;">在线</td>
+                                                {% else %}
+                                                    <td style="text-align:center;vertical-align:middle;">离线</td>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </tr>
+                                </table>
+                            </div>
+                            <div style="height: 100%;width: 200px;">
+                                <table border="1" class="table">
+                                    <tr style="background-color: #f8cd9f">
+                                        <th style="text-align:center;vertical-align:middle;">违规信息</th>
+                                        <th style="text-align:center;vertical-align:middle;">敏感词汇</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center;vertical-align:middle;">0</td>
+                                        <td style="text-align:center;vertical-align:middle;">0</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div style="height: 100%; width: 100px;text-align:center;">
+                                <a href="#" class="btn btn-danger" style="margin-top: 20%;margin-bottom: 20%">个人详情页面</a>
+                            </div>
+                        </div>
+                        <hr class="hr2">
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <div class="div">
+            <ul class="footer-column-t">
+                <li class="li"><a href="#">关于我们</a></li>
+                <li class="li"><a href="mailto: 2251798294@qq.com">找我合作</a> </li>
+            </ul>
+            <ul class="column-b">
+                <li class="li"><a href="http://beian.miit.gov.cn">赣ICP备2021004042号</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
